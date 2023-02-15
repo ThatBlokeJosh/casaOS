@@ -29,13 +29,13 @@
 
     onMount( () => {
         const interval = setInterval(() => {
-        date = new Date();}, 1000);
+        date = new Date(); 
         if (minutes < 10) {
-        minuteFormat = true;
+            minuteFormat = true;
         }
         else {
             minuteFormat = false;
-        }
+        }}, 1000);
     });
 
     import dayjs from 'dayjs'
