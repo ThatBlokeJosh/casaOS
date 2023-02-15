@@ -1,4 +1,5 @@
 <script>
+    import { onMount } from 'svelte';
     let show1 = false;
     const showTitle1 = () => {
         show1 = true;
@@ -20,6 +21,34 @@
     const hideTitle3 = () => {
         show3 = false;
     }
+
+    let date = new Date();
+    $: hour = date.getHours();
+    $: minutes = date.getMinutes();
+
+    onMount( () => {
+        const interval = setInterval(() => {
+        date = new Date();}, 1000);
+    });
+
+    import dayjs from 'dayjs'
+    let format = 'dddd, MMMM D, YYYY'
+    let internal
+    const input = (x) => (internal = dayjs(x).format(format))
+    const output = (x) => (date = dayjs(x, format).toDate())
+
+    $: input(date)
+    $: output(internal)
+
+    let minuteFormat = false;
+
+    if (minutes > 10) {
+        minuteFormat = true;
+    }
+    else {
+        minuteFormat = false;
+    }
+
 </script>
 
 <body>
@@ -48,27 +77,32 @@
         <div class="contentLeft">
             <div class="item">
                 <div class="clock">
-                    <h1>time</h1>
+                    {#if minuteFormat}
+                        <h1 class="time">{hour}:0{minutes}</h1>
+                    {:else}
+                        <h1 class="time">{hour}:{minutes}</h1>
+                    {/if}
+                    <p class="date">{internal}</p>
                 </div>
             </div>
             <div class="item">
                 <div class="status">
-                    <h1>status</h1>
+                    <h1>System status</h1>
                 </div>
             </div>
             <div class="item">
                 <div class="storage">
-                    <h1>storage</h1>
+                    <h1>Storage</h1>
                 </div>
             </div>
             <div class="item">
                 <div class="network">
-                    <h1>network</h1>
+                    <h1>Network status</h1>
                 </div>
             </div>
             <div class="item">
                 <div class="widgets">
-                    <p style="font-weight: 500;">Widget settings</p>
+                    <h1>Widget settings</h1>
                 </div>
             </div> 
         </div>
@@ -87,7 +121,7 @@
                 </div>
             </div>
             <div class="item">
-                <h1 style="font-size: 1rem;">App</h1>
+                <h1>App</h1>
                 <div class="userApps">
                     <h1>qBit</h1>
                 </div>
@@ -106,6 +140,22 @@
         margin: 0 auto;
         font-family: 'Roboto', sans-serif;
         color: #fff;
+    }
+    h1 {
+        font-size: 1rem; margin: 10px; padding:10px;
+    }
+    .time {
+        font-size: 2rem;
+        font-weight: 100;
+        margin: 0 auto;
+        padding: 10px;
+        position: relative;
+    }
+    .date {
+        font-size: 1rem;
+        font-weight: 100;
+        margin: 0 auto;
+        padding: 10px;
     }
     .content {
         width: 80%;
