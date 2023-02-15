@@ -53,21 +53,17 @@
     <div class="topbar">
         <ul>
             <li><a href="/" on:mouseenter={showTitle1} on:mouseleave={hideTitle1}><i class="fas fa-user-gear"></i></a></li>
-            {#if show1}
-                <p class="title1">Account</p>
-            {/if}
-            {#if !show1}
-                <li><a href="/" on:mouseenter={showTitle2} on:mouseleave={hideTitle2}><i class="fas fa-gear"></i></a></li>
+                {#if show1}
+                    <p class="title1" draggable="no">Account</p>
+                {/if}
+            <li><a href="/" on:mouseenter={showTitle2} on:mouseleave={hideTitle2}><i class="fas fa-gear"></i></a></li>
                 {#if show2}
-                    <p class="title2">Settings</p>
+                    <p class="title2" draggable="no">Settings</p>
                 {/if}
-                {#if !show2}
-                    <li><a href="/" on:mouseenter={showTitle3} on:mouseleave={hideTitle3}><i class="fas fa-terminal"></i></a></li>
-                    {#if show3}
-                        <p class="title3">Terminal</p>
-                    {/if}
+            <li><a href="/" on:mouseenter={showTitle3} on:mouseleave={hideTitle3}><i class="fas fa-terminal"></i></a></li>
+                {#if show3}
+                    <p class="title3" draggable="no">Terminal</p>
                 {/if}
-            {/if}
         </ul>
     </div>
 
@@ -136,7 +132,21 @@
             <div class="item">
                 <h1>App</h1>
                 <div class="userApps">
-                    <h1>qBit</h1>
+                    <div class="app tooltip">
+                            <img src="http://demo.casaos.io/img/appstore.02fca5a8.svg" alt="">
+                        <span class="tooltiptext">
+                            <p>Open</p>
+                        </span>
+                        <p>App Store</p>
+                    </div>
+                    <div class="app">
+                        <img src="http://demo.casaos.io/img/files.25391a43.svg" alt="">
+                        <p>Files</p>
+                    </div>
+                    <div class="app">
+                        <img src="https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Jellyfin/icon.png" alt="">
+                        <p>Jellyfin</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -259,10 +269,47 @@
         margin-bottom: 1%;
     }
     .userApps {
+        height: max-content;
+        display: flex;
+    }
+    @media screen and (max-width: 768px) {
+        .userApps {
+            flex-direction: column;
+        }
+    }
+    .app {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        width: 150px;
+        height: 150px;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
         background-color: rgba(71, 71, 71, 0.5);
         border-radius: 10px;
-        height: max-content;
+        gap: 10px;
+        margin: 10px;
+        transition: all 0.2s ease-in-out;
+    }
+    .app:hover {
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.7);
+        cursor: pointer;
+    }
+    .app > img {
+        width: 64px;
+        height: 64px;
+        position: absolute;
+        top: 15%;
+        transition: all 0.3s;
+    }
+    .app > img:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+    
+    .app > p {
+        position: absolute;
+        bottom: 10px;
     }
     .storage {
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
@@ -315,6 +362,7 @@
         position: absolute;
         left: 5%;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+        background-color: rgb(39, 39, 39);
         padding: 10px;
         border-radius: 10px;
         animation: fade-in 0.5s ease-in-out;
@@ -323,6 +371,7 @@
         position: absolute;
         left: 7%;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+        background-color: rgb(39, 39, 39);
         padding: 10px;
         border-radius: 10px;
         animation: fade-in 0.5s ease-in-out;
@@ -331,14 +380,44 @@
         position: absolute;
         left: 9%;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+        background-color: rgb(39, 39, 39);
         padding: 10px;
         border-radius: 10px;
         animation: fade-in 0.7s ease-in-out;
     }
+    .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -60px;
+    }
+
+    .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+    }
+
+    .tooltip:hover .tooltiptext {
+    visibility: visible;
+    }
 
     @keyframes fade-in {
         0% {
-            opacity: 0.4;
+            opacity: 0;
         }
         100% {
             opacity: 1;
