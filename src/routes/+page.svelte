@@ -25,10 +25,17 @@
     let date = new Date();
     $: hour = date.getHours();
     $: minutes = date.getMinutes();
+    let minuteFormat = false;
 
     onMount( () => {
         const interval = setInterval(() => {
         date = new Date();}, 1000);
+        if (minutes < 10) {
+        minuteFormat = true;
+        }
+        else {
+            minuteFormat = false;
+        }
     });
 
     import dayjs from 'dayjs'
@@ -39,15 +46,6 @@
 
     $: input(date)
     $: output(internal)
-
-    let minuteFormat = false;
-
-    if (minutes > 10) {
-        minuteFormat = true;
-    }
-    else {
-        minuteFormat = false;
-    }
 
 </script>
 
@@ -71,6 +69,21 @@
                 {/if}
             {/if}
         </ul>
+    </div>
+
+    <div class="bottomtab">
+        <div class="logo">
+            <img src="http://demo.casaos.io/img/logo.4b14f83d.png" alt="casaOS logo" class="logo">
+            <p class="credits">Made with ❤️ by IceWhale and YOU! (UI recration by ThatBlokeJosh)</p>
+        </div>
+        <div class="navbar">
+            <ul>
+                <li><a href="/"><i class="fas fa-message"></i></a></li>
+                <li><a href="/"><i class="fab fa-discord"></i></a></li>
+                <li><a href="/"><i class="fab fa-github"></i></a></li>
+                <li><a href="/"><i class="fas fa-comments"></i></a></li>
+            </ul>
+        </div>
     </div>
 
     <div class="content">
@@ -128,6 +141,7 @@
             </div>
         </div>
     </div>
+
 </body>
 
 <style>
@@ -140,6 +154,40 @@
         margin: 0 auto;
         font-family: 'Roboto', sans-serif;
         color: #fff;
+    }
+    .bottomtab {
+        display: flex;
+        position: absolute;
+        bottom: 0;
+        width: 99%;
+    }
+    .logo {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    img.logo  {
+        width: 136px;
+        height: 26px;
+        margin: 20px;
+    }
+    .credits {
+        font-size: 0.7rem;
+        margin-bottom: 5px;
+    }
+    .navbar {
+        position: absolute;
+        right: 0;
+    }
+    .navbar > ul {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 20px;
+        gap: 20px;
+    }
+    .navbar > ul > li {
+        font-size: large;
     }
     h1 {
         font-size: 1rem; margin: 10px; padding:10px;
@@ -159,7 +207,7 @@
     }
     .content {
         width: 80%;
-        height: 80%;
+        height: 70%;
         position: absolute;
         top: 10%;
         left: 10%;
@@ -175,7 +223,7 @@
         position: relative;
     }
     .clock {
-        height: min-content;
+        height: max-content;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
         background-color: rgba(71, 71, 71, 0.5);
         border-radius: 10px;
@@ -185,13 +233,13 @@
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
         background-color: rgba(71, 71, 71, 0.5);
         border-radius: 10px;
-        height: 15em;
+        height: max-content;
     }
     .apps {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1%;
-        height: 15em;
+        height: max-content;
     }
     .app1 {
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
@@ -207,26 +255,26 @@
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
         background-color: rgba(71, 71, 71, 0.5);
         border-radius: 10px;
-        height: 4em;
+        height: max-content;
         margin-bottom: 1%;
     }
     .userApps {
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
         background-color: rgba(71, 71, 71, 0.5);
         border-radius: 10px;
-        height: 20em;
+        height: max-content;
     }
     .storage {
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
         background-color: rgba(71, 71, 71, 0.5);
         border-radius: 10px;
-        height: 7.5em;
+        height: max-content;
     }
     .network {
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
         background-color: rgba(71, 71, 71, 0.5);
         border-radius: 10px;
-        height: 15em;
+        height: max-content;
     }
     .widgets {
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
@@ -287,6 +335,7 @@
         border-radius: 10px;
         animation: fade-in 0.7s ease-in-out;
     }
+
     @keyframes fade-in {
         0% {
             opacity: 0.4;
