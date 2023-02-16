@@ -74,10 +74,29 @@
         </div>
         <div class="navbar">
             <ul>
-                <li><a href="/"><i class="fas fa-message"></i></a></li>
-                <li><a href="/"><i class="fab fa-discord"></i></a></li>
-                <li><a href="/"><i class="fab fa-github"></i></a></li>
-                <li><a href="/"><i class="fas fa-comments"></i></a></li>
+                <div class="navItem">
+                    <li><a href="/"><i class="fas fa-message tooltip"></i></a></li>
+                    <span class="tooltiptext navTooltip">
+                        Submit a feedback or report an issue
+                    </span>
+                </div>
+                <div class="navItem">
+                    <li><a href="/"><i class="fab fa-discord"></i></a></li>
+                    <span class="tooltiptext navTooltip" style="margin-left: -28.7%;">
+                        Join Discord
+                    </span>
+                </div>
+                <div class="navItem">
+                    <li><a href="/"><i class="fab fa-github"></i></a></li>
+                    <span class="tooltiptext navTooltip" style="margin-left: -11%">
+                        Visit our GitHub
+                    </span>
+                </div>
+                <div class="navItem">
+                    <li><a href="/"><i class="fas fa-comments"></i></a></li>
+                    <span class="tooltiptext shareTooltip" style="margin-left: -1%">
+                        Share CasaOS
+                </div>
             </ul>
         </div>
     </div>
@@ -132,19 +151,25 @@
             <div class="item">
                 <h1>App</h1>
                 <div class="userApps">
-                    <div class="app tooltip">
-                            <img src="http://demo.casaos.io/img/appstore.02fca5a8.svg" alt="">
-                        <span class="tooltiptext">
-                            <p>Open</p>
+                    <div class="app">
+                        <img src="http://demo.casaos.io/img/appstore.02fca5a8.svg" alt="" class="tooltip">
+                        <span class="tooltiptext appTooltip">
+                            Open
                         </span>
                         <p>App Store</p>
                     </div>
                     <div class="app">
-                        <img src="http://demo.casaos.io/img/files.25391a43.svg" alt="">
+                        <img src="http://demo.casaos.io/img/files.25391a43.svg" alt="" class="tooltip">
+                        <span class="tooltiptext appTooltip">
+                            Open
+                        </span>
                         <p>Files</p>
                     </div>
                     <div class="app">
-                        <img src="https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Jellyfin/icon.png" alt="">
+                        <img src="https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Jellyfin/icon.png" alt="" class="tooltip">
+                        <span class="tooltiptext appTooltip">
+                            Open
+                        </span>
                         <p>Jellyfin</p>
                     </div>
                 </div>
@@ -164,6 +189,9 @@
         margin: 0 auto;
         font-family: 'Roboto', sans-serif;
         color: #fff;
+    }
+    :root {
+        --tooltipWidth : 70px;
     }
     .bottomtab {
         display: flex;
@@ -195,9 +223,6 @@
         align-items: center;
         margin: 20px;
         gap: 20px;
-    }
-    .navbar > ul > li {
-        font-size: large;
     }
     h1 {
         font-size: 1rem; margin: 10px; padding:10px;
@@ -360,7 +385,7 @@
     }
     .title1 {
         position: absolute;
-        left: 5%;
+        left: 6%;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
         background-color: rgb(39, 39, 39);
         padding: 10px;
@@ -369,7 +394,7 @@
     }
     .title2 {
         position: absolute;
-        left: 7%;
+        left: 8%;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
         background-color: rgb(39, 39, 39);
         padding: 10px;
@@ -378,7 +403,7 @@
     }
     .title3 {
         position: absolute;
-        left: 9%;
+        left: 10%;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
         background-color: rgb(39, 39, 39);
         padding: 10px;
@@ -387,17 +412,37 @@
     }
     .tooltiptext {
     visibility: hidden;
-    width: 120px;
-    background-color: black;
+    width: var(--tooltipWidth);
+    box-sizing: border-box;
     color: #fff;
     text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
+    border-radius: 10px;
     position: absolute;
-    z-index: 1;
-    bottom: 150%;
     left: 50%;
-    margin-left: -60px;
+    }
+    .appTooltip {
+        background-color: rgb(41, 41, 41);
+        bottom: 99%;
+        padding: 7px 0;
+        padding: 5px;
+        --tooltipWidth: 70px;
+        margin-left: calc(var(--tooltipWidth) / -2);
+    }
+    .appTooltip::after {
+        border-color: rgb(41, 41, 41) transparent transparent transparent;
+    }
+    .navTooltip {
+        background-color: rgb(0, 128, 255);
+        bottom: 80%;
+        padding: 2px 0;
+        --tooltipWidth: 120px;
+        margin-left: -46.5%;
+        border-radius: 5px;
+        font-size: 0.8rem;
+    }
+
+    .navTooltip::after {
+        border-color: rgb(0, 128, 255) transparent transparent transparent;
     }
 
     .tooltiptext::after {
@@ -408,11 +453,43 @@
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: black transparent transparent transparent;
     }
 
-    .tooltip:hover .tooltiptext {
-    visibility: visible;
+    .shareTooltip {
+        background-color: rgb(0, 128, 255);
+        bottom: 80%;
+        padding: 2px 0;
+        --tooltipWidth: 120px;
+        border-radius: 5px;
+        visibility: hidden;
+        width: var(--tooltipWidth);
+        box-sizing: border-box;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        position: absolute;
+        left: 50%;
+        font-size: 0.8rem;
+    }
+    .shareTooltip::after {
+        border-color: rgb(0, 128, 255) transparent transparent transparent;
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 65%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+
+    }
+
+    .tooltip:hover + .tooltiptext {
+        visibility: visible;
+        animation: fade-in 0.2s ease-in-out;
+    }
+    li:hover + .tooltiptext {
+        visibility: visible;
+        animation: fade-in 0.2s ease-in-out;
     }
 
     @keyframes fade-in {
